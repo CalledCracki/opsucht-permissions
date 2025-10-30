@@ -1,0 +1,8 @@
+name: opsucht-permission
+version: '${project.version}'
+main: net.opsucht.permission.bukkit.Bukkit
+api-version: '1.21'
+author: CalledCracki
+description: "Generic permission API integration for multiple permission systems."
+depend: [LuckPerms]
+website: "opsucht.net"

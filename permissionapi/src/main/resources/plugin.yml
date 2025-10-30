@@ -1,0 +1,4 @@
+name: permission-api
+version: '${project.version}'
+main: net.opsucht.permission-api.API
+api-version: '1.21'

@@ -1,0 +1,43 @@
+# Maven output
+/target/
+*/target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+*.log.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Java / Build
+*.class
+*.jar
+*.war
+*.ear
+
+# Dependencies cache
+.mvn/
+.m2/
+
+# Backup / temp
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Build artifacts
+dependency-reduced-pom.xml
+
+# Testing output
+hs_err_pid*
+replay_pid*
