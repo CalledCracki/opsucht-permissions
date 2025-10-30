@@ -19,6 +19,7 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
+        <github.repo>CalledCracki/opsucht-permissions</github.repo>
     </properties>
 
     <dependencyManagement>

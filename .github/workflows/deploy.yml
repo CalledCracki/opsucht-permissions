@@ -1,0 +1,33 @@
+name: Build and Deploy API
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'permissionapi/**'
+      - '.github/workflows/deploy.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+          server-id: github
+          settings-path: ${{ github.workspace }}
+
+      - name: Build all modules
+        run: mvn -B clean package
+
+      - name: Publish API to GitHub Packages
+        run: mvn -B deploy -pl permissionapi -am
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
