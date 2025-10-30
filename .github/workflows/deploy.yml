@@ -3,16 +3,17 @@ name: Build and Deploy API
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'permissionapi/**'
-      - '.github/workflows/deploy.yml'
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up JDK 21
