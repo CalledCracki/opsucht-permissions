@@ -12,6 +12,7 @@
     <modules>
         <module>permissionapi</module>
         <module>permissionbukkit</module>
+        <module>permissionbungee</module>
     </modules>
 
     <properties>

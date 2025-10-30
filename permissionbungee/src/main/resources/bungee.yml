@@ -1,3 +1,7 @@
-name: permissionbungee
+name: opsucht-permission
 version: '${project.version}'
-main: net.opsucht.permissionbungee.Bungee
+main: net.opsucht.permission.bungee.Bungee
+author: CalledCracki
+description: "Generic permission API bridge for OPSUCHT network (BungeeCord)"
+depends: [LuckPerms]
+website: "opsucht.net"
