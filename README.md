@@ -1,6 +1,6 @@
-# OPSucht PermissionsAPI
+# PermissionsAPI
 
-Eine modulare und generische **PermissionsAPI** für das OPSucht Netzwerk.  
+Eine modulare und generische **PermissionsAPI**.  
 Dieses Projekt stellt eine einheitliche Schnittstelle zu verschiedenen Permission-Systemen bereit  
 (z. B. **LuckPerms**, **GroupManager**, **PermissionsEx**) und ermöglicht es,  
 Netzwerk-Plugins unabhängig vom verwendeten Permission-System zu entwickeln.
@@ -25,13 +25,13 @@ Netzwerk-Plugins unabhängig vom verwendeten Permission-System zu entwickeln.
 <repositories>
   <repository>
     <id>github</id>
-    <url>https://maven.pkg.github.com/CalledCracki/opsucht-permissions</url>
+    <url>https://maven.pkg.github.com/CalledCracki/generic-permissions</url>
   </repository>
 </repositories>
 
 <dependencies>
   <dependency>
-    <groupId>net.opsucht</groupId>
+    <groupId>net.fresh2play</groupId>
     <artifactId>permissionapi</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </dependency>
@@ -41,7 +41,7 @@ Netzwerk-Plugins unabhängig vom verwendeten Permission-System zu entwickeln.
 ### Gradle (Kotlin DSL)
 ```kotlin
 repositories {
-    maven { url = uri("https://maven.pkg.github.com/CalledCracki/opsucht-permissions") }
+    maven { url = uri("https://maven.pkg.github.com/CalledCracki/generic-permissions") }
 }
 
 dependencies {
@@ -55,11 +55,11 @@ dependencies {
 ## 🚀 Beispielverwendung
 
 ```java
-import net.opsucht.permission.api.Permission;
+import net.fresh2play.permission.api.Permission;
 
 UUID playerId = player.getUniqueId();
 
-if (Permission.get().has(playerId, "opsucht.fly")) {
+if (Permission.get().has(playerId, "f2p.fly")) {
     player.sendMessage("§aDu darfst fliegen!");
 } else {
     player.sendMessage("§cKeine Berechtigung!");
@@ -106,5 +106,5 @@ mvn clean package
 
 ---
 
-> OPSucht Permissions — „Eine API, ein Interface, alle Systeme.“
+> Permissions+ — „Eine API, ein Interface, alle Systeme.“
 
