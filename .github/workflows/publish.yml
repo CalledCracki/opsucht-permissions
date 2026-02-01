@@ -26,4 +26,4 @@ jobs:
           server-password: GITHUB_TOKEN
 
       - name: Publish
-        run: mvn -B -DskipTests deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/CalledCracki/generic-permissions
+        run: mvn -B -DskipTests deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/CalledCracki/opsucht-permissions
