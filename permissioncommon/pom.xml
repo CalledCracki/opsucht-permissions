@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -9,30 +10,30 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>permissionapi</artifactId>
+    <artifactId>permissioncommon</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- API Module -->
+        <dependency>
+            <groupId>net.opsucht</groupId>
+            <artifactId>permissionapi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- JetBrains Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
         </dependency>
 
-        <!-- JUnit 5 for testing -->
+        <!-- LuckPerms API -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.10.0</version>
-            <scope>test</scope>
+            <groupId>net.luckperms</groupId>
+            <artifactId>api</artifactId>
+            <version>5.4</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/CalledCracki/opsucht-permissions</url>
-        </repository>
-    </distributionManagement>
 </project>

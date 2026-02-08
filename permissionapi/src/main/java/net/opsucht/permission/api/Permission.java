@@ -5,11 +5,25 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Statische Zugriffsklasse auf den aktuell aktiven PermissionProvider.
+ * Static access class for the currently active PermissionProvider.
+ * 
+ * <p>
+ * This class provides a singleton pattern for accessing the permission system.
+ * The provider must be initialized before use via
+ * {@link #set(PermissionProvider)}.
+ * </p>
+ * 
+ * <p>
+ * <b>Thread Safety:</b> This class is thread-safe. The singleton instance uses
+ * volatile memory semantics and synchronized initialization to prevent race
+ * conditions.
+ * </p>
+ * 
+ * @since 1.0.0
  */
 public final class Permission {
 
-    private static @Nullable PermissionProvider instance = null;
+    private static volatile @Nullable PermissionProvider instance = null;
 
     @ApiStatus.Internal
     private Permission() {
@@ -17,31 +31,58 @@ public final class Permission {
     }
 
     /**
-     * Gibt den aktuell gesetzten PermissionProvider zurück.
+     * Returns the currently configured PermissionProvider.
+     * 
+     * <p>
+     * This method will throw an exception if the provider has not been initialized.
+     * Check {@link #isInitialized()} first if you need to verify provider
+     * availability.
+     * </p>
      *
-     * @return PermissionProvider
-     * @throws IllegalStateException wenn kein Provider gesetzt wurde
+     * @return the active PermissionProvider instance
+     * @throws IllegalStateException if no provider has been set
+     * @see #isInitialized()
+     * @since 1.0.0
      */
     public static @NotNull PermissionProvider get() {
-        if (instance == null) {
+        PermissionProvider current = instance;
+        if (current == null) {
             throw new IllegalStateException("Permission has not been initialized");
         }
-        return instance;
+        return current;
     }
 
     /**
-     * Prüft, ob ein Provider initialisiert wurde.
+     * Checks whether a provider has been initialized.
+     * 
+     * @return true if a provider has been set, false otherwise
+     * @since 1.0.0
      */
     public static boolean isInitialized() {
         return instance != null;
     }
 
     /**
-     * Setzt den globalen PermissionProvider.
+     * Sets the global PermissionProvider.
+     * 
+     * <p>
+     * This method can only be called once. Subsequent calls will throw an
+     * IllegalStateException to prevent accidental re-initialization.
+     * </p>
+     * 
+     * <p>
+     * <b>Thread Safety:</b> This method is synchronized to prevent race conditions
+     * during initialization.
+     * </p>
      *
-     * @param provider der zu verwendende Provider
+     * @param provider the provider to use (must not be null)
+     * @throws IllegalStateException if a provider has already been set
+     * @since 1.0.0
      */
-    public static void set(@NotNull PermissionProvider provider) {
+    public static synchronized void set(@NotNull PermissionProvider provider) {
+        if (instance != null) {
+            throw new IllegalStateException("Permission provider has already been initialized");
+        }
         instance = provider;
     }
 }

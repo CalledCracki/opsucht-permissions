@@ -1,0 +1,21 @@
+# Configuration for OPSucht PermissionsAPI (Bukkit)
+
+# Provider detection priority
+# The plugin will try to detect permission systems in this order
+# Possible values: LuckPerms, GroupManager, PermissionsEx, Native
+provider-priority:
+  - LuckPerms
+  - GroupManager
+  - PermissionsEx
+  - Native  # Native Bukkit permissions (fallback)
+
+# Default world name for world-based permission systems (like GroupManager)
+# This is used when the player is offline
+default-world: world
+
+# Enable caching for permission checks
+# This can improve performance but may not reflect real-time permission changes
+enable-cache: false
+
+# Cache duration in seconds (only applicable if enable-cache is true)
+cache-duration: 30

@@ -20,7 +20,22 @@ Netzwerk-Plugins unabhängig vom verwendeten Permission-System zu entwickeln.
 
 ## ⚙️ Installation (für Entwickler)
 
-### Maven
+### Kompatibilität
+
+| Component | Supported Versions |
+|-----------|-------------------|
+| **Minecraft (Bukkit/Paper)** | 1.18.x - 1.21.x |
+| **Minecraft (Bungee/Waterfall)** | Latest |
+| **Java** | 17+ |
+| **LuckPerms** | 5.4+ |
+| **GroupManager** | 3.2+ |
+| **PermissionsEx** | 1.22.3+ |
+
+---
+<br>
+
+## 💾 Maven Installation
+
 ```xml
 <repositories>
   <repository>
@@ -54,8 +69,10 @@ dependencies {
 
 ## 🚀 Beispielverwendung
 
+### Synchronous API
+
 ```java
-import net.fresh2play.permission.api.Permission;
+import net.opsucht.permission.api.Permission;
 
 UUID playerId = player.getUniqueId();
 
@@ -66,9 +83,32 @@ if (Permission.get().has(playerId, "f2p.fly")) {
 }
 ```
 
-Oder um eine Permission zu vergeben:
+### Permission hinzufügen/entfernen
+
 ```java
+// Synchron (blockierend)
 Permission.get().add(playerId, "opsucht.fly");
+Permission.get().remove(playerId, "opsucht.build");
+
+// Asynchron (nicht-blockierend, empfohlen)
+Permission.get().addAsync(playerId, "opsucht.fly")
+    .thenRun(() -> player.sendMessage("§aPermission hinzugefügt!"))
+    .exceptionally(throwable -> {
+        player.sendMessage("§cFehler: " + throwable.getMessage());
+        return null;
+    });
+```
+
+### Mit Caching (optional)
+
+```java
+import net.opsucht.permission.common.cache.CachedPermissionProvider;
+import net.opsucht.permission.api.Permission;
+
+// Wrap provider mit Caching für bessere Performance
+PermissionProvider baseProvider = ProviderManager.detectProvider();
+PermissionProvider cachedProvider = new CachedPermissionProvider(baseProvider);
+Permission.set(cachedProvider);
 ```
 
 ---
@@ -76,11 +116,12 @@ Permission.get().add(playerId, "opsucht.fly");
 
 ## 🧠 Unterstützte Permission-Systeme
 
-| System | Modul | Status |
-|---------|--------|--------|
-| **LuckPerms** | Bukkit + Bungee | ✅ Vollständig |
-| **GroupManager** | Bukkit | ⚙️ Teilweise |
-| **PermissionsEx** | Bukkit | ⚙️ In Arbeit |
+| System | Modul | Status | Features |
+|---------|--------|--------|----------|
+| **LuckPerms** | Bukkit + Bungee | ✅ Vollständig | Async Support |
+| **GroupManager** | Bukkit | ✅ Vollständig | World-based |
+| **PermissionsEx** | Bukkit | ⚙️ In Arbeit | Multi-Version |
+| **Native Bukkit** | Bukkit | ✅ Fallback | Basic Only |
 
 ---
 <br>

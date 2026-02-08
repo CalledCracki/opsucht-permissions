@@ -82,6 +82,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- Common Modul -->
+        <dependency>
+            <groupId>net.opsucht</groupId>
+            <artifactId>permissioncommon</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- JetBrains Annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>

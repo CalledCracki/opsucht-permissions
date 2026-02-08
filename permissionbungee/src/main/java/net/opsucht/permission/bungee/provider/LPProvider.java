@@ -1,73 +1,38 @@
 package net.opsucht.permission.bungee.provider;
 
 import net.luckperms.api.LuckPerms;
-import net.luckperms.api.model.user.User;
-import net.luckperms.api.node.Node;
-import net.opsucht.permission.api.PermissionProvider;
+import net.opsucht.permission.common.provider.AbstractLPProvider;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
-/*
- * Implementation des PermissionProvider-Interfaces für LuckPerms (BungeeCord).
+/**
+ * LuckPerms provider implementation for BungeeCord/Waterfall proxies.
+ * 
+ * <p>
+ * This implementation extends the shared AbstractLPProvider and provides
+ * BungeeCord-specific initialization and logging.
+ * </p>
+ * 
+ * @since 1.0.0
  */
-public final class LPProvider implements PermissionProvider {
+public final class LPProvider extends AbstractLPProvider {
 
-    private final LuckPerms api;
+    private final Logger logger;
 
-    public LPProvider(LuckPerms api) {
-        this.api = api;
+    /**
+     * Constructs a new LPProvider for BungeeCord.
+     * 
+     * @param api    the LuckPerms API instance
+     * @param logger the logger for this provider
+     */
+    public LPProvider(@NotNull LuckPerms api, @NotNull Logger logger) {
+        super(api);
+        this.logger = logger;
     }
 
     @Override
-    public @NotNull String getProviderName() {
-        return "LuckPerms";
-    }
-
-    @Override
-    public boolean has(@NotNull UUID uuid, @NotNull String permission) {
-        User user = api.getUserManager().getUser(uuid);
-        if (user == null) return false;
-        return user.getCachedData()
-                .getPermissionData()
-                .checkPermission(permission)
-                .asBoolean();
-    }
-
-    @Override
-    public void add(@NotNull UUID uuid, @NotNull String permission) {
-        User user = api.getUserManager().getUser(uuid);
-        if (user == null) return;
-        Node node = Node.builder(permission).build();
-        user.data().add(node);
-        api.getUserManager().saveUser(user);
-    }
-
-    @Override
-    public void remove(@NotNull UUID uuid, @NotNull String permission) {
-        User user = api.getUserManager().getUser(uuid);
-        if (user == null) return;
-        Node node = Node.builder(permission).build();
-        user.data().remove(node);
-        api.getUserManager().saveUser(user);
-    }
-
-    @Override
-    public @NotNull Set<String> getGroups(@NotNull UUID uuid) {
-        User user = api.getUserManager().getUser(uuid);
-        if (user == null) return Set.of();
-        return user.getNodes().stream()
-                .filter(node -> node.getType().name().equalsIgnoreCase("inheritance"))
-                .map(node -> node.getKey().replace("group.", ""))
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public @NotNull Set<String> getGroups() {
-        return api.getGroupManager().getLoadedGroups().stream()
-                .map(g -> g.getName())
-                .collect(Collectors.toSet());
+    protected Logger getLogger() {
+        return logger;
     }
 }

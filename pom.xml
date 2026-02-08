@@ -11,6 +11,7 @@
 
     <modules>
         <module>permissionapi</module>
+        <module>permissioncommon</module>
         <module>permissionbukkit</module>
         <module>permissionbungee</module>
     </modules>
@@ -21,6 +22,21 @@
         <jetbrains.annotations.version>23.0.0</jetbrains.annotations.version>
         <github.repo>CalledCracki/opsucht-permissions</github.repo>
     </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
+                    <configuration>
+                        <release>17</release>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <dependencyManagement>
         <dependencies>
