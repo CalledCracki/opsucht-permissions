@@ -46,7 +46,7 @@ Netzwerk-Plugins unabhängig vom verwendeten Permission-System zu entwickeln.
 
 <dependencies>
   <dependency>
-    <groupId>net.fresh2play</groupId>
+    <groupId>net.opsucht</groupId>
     <artifactId>permissionapi</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </dependency>
